@@ -8,11 +8,11 @@ const Router = createBrowserRouter([
     element: <HomeLayOut />
   },
   {
-    path: '/login',
+    path: '/auth/login',
     element: <Login />
   },
   {
-    path: '/signup',
+    path: '/auth/signup',
     element: <Signup />
   },
 ])

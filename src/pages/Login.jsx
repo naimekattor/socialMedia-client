@@ -3,6 +3,7 @@ import { Input } from '@/components/ui/input'
 import React from 'react'
 import { FaApple, FaGoogle } from "react-icons/fa";
 import googleIcon from '../assets/images/google.png'
+import { Link } from 'react-router';
 const Login = () => {
   return (
     <div className='flex items-center justify-center h-screen w-full bg-[#3f2c68]'>
@@ -25,7 +26,7 @@ const Login = () => {
           Login Using Google</Button>
         <Button variant='outline' className='w-full bg-transparent text-secondary'><FaApple className='mr-2  inline' style={{ width: 30, height: 30 }} />Login Using Apple</Button>
 
-        <h2 className='text-center text-secondary mt-3'>Dont have an account? Sign up</h2>
+        <h2 className='text-center text-secondary mt-3'>Dont have an account?<Link to={'/auth/signup'}>Sign up</Link> </h2>
       </div>
 
     </div>
