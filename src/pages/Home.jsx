@@ -1,14 +1,56 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import img1 from '/img/img1.jpg'
 import img2 from '/img/img2.jpg'
 import img3 from '/img/img3.jpg'
 import img4 from '/img/img4.jpg'
 import img5 from '/img/img5.jpg'
+import axios from 'axios';
+import { AuthContext } from '@/context/authContext/AuthContext';
 // Main App component
 const Home = () => {
   // State for managing active navigation link (though not fully implemented for routing)
   const [activeNav, setActiveNav] = useState('home');
+  const [userInfo,setUserInfo]=useState()
 
+
+  const {user}=useContext(AuthContext);
+  const userId=user?._id
+  console.log(user);
+  console.log(userInfo?.profilePicture);
+
+
+  /* useEffect(()=>{
+        axios.get(`http://localhost:5000/api/user/${userId}`,{
+          withCredentials:true
+        })
+        .then(res=>{
+          setUserInfo(res.data);
+          
+        }).catch(err=>{
+          console.log(err);
+          
+        })
+  },[]) */
+
+  useEffect(() => {
+  const fetchUser = async () => {
+    try {
+      if (!userId) return;
+      const res = await axios.get(`http://localhost:5000/api/user/${userId}`, {
+        withCredentials: true // 👈 send cookies
+      })
+      setUserInfo(res.data)
+    } catch (err) {
+      console.log("User not authenticated")
+    }
+  }
+
+  fetchUser()
+}, [])
+
+
+  
+  
   // Dummy data for posts to populate the feed
   const posts = [
     {
@@ -50,7 +92,7 @@ const Home = () => {
       <header className="fixed top-0 left-0 right-0  p-4 z-10 flex items-center justify-between shadow-lg max-w-3xl mx-auto">
         {/* User avatar in header */}
         <div className="w-10 h-10 rounded-lg overflow-hidden border-2 border-purple-500">
-          <img src={img1} alt="User Avatar" className="w-full h-full object-cover" />
+          <img src={userInfo?.profilePicture} alt="User Avatar" className="w-full h-full object-cover" />
         </div>
         {/* Search input */}
         <div className="flex-grow mx-4">

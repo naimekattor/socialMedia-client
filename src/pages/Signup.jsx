@@ -12,7 +12,14 @@ const Signup = () => {
     const data = new FormData(form);
     const formData = Object.fromEntries(data.entries())
 
-    axios.post('')
+    axios.post('http://localhost:5000/api/auth/register',formData)
+    .then(res=>{
+      console.log(res.data);
+      
+    }).catch(err=>{
+      console.log(err);
+      
+    })
     console.log(data.entries());
 
     console.log(formData);
@@ -23,14 +30,16 @@ const Signup = () => {
       <div className=''>
         <h1 className='text-[42px] font-medium text-secondary mb-10'>Create an Account</h1>
         <form action="" className='text-secondary space-y-4' onSubmit={handleFormSubmit}>
+          <label htmlFor="">Full Name</label>
+          <Input type='text' name='fullName' placeholder='Enter Your Full  Name' />
           <label htmlFor="">Username</label>
-          <Input type='text' name='username' placeholder='Enter Your Email Adress' />
+          <Input type='text' name='username' placeholder='Enter Your User Name ' />
           <label htmlFor="">Email Adress</label>
           <Input type='email' name='email' placeholder='Enter Your Email Adress' />
           <label htmlFor="">Password</label>
-          <Input type='password' name='password' placeholder='Enter Your Email Adress' />
+          <Input type='password' name='password' placeholder='Enter Your Password' />
           <label htmlFor="">Confirm password</label>
-          <Input type='password' name='confirmpassword' placeholder='Enter Your Password' />
+          <Input type='password' name='confirmpassword' placeholder='Enter Your Confirm Password' />
           <Button variant='outline' className='w-full text-primary' type='submit'>Sign up</Button>
 
         </form>
